@@ -27,12 +27,16 @@ public class ShopSphereService {
   Order o=new Order(id,customer);orders.put(id,o);publisher.publish(id,"CREATED");return o;
  }
 
- public void addItem(String orderId,String productId){
-  Order o=orders.get(orderId); Product p=products.find(productId);
-  if(o==null||p==null)return;
-  p.stock--; // no validation/reservation
-  o.productIds.add(productId);o.total+=p.price;
- }
+    public void addItem(String orderId,String productId){
+        Order o=orders.get(orderId);
+        Product p=products.find(productId);
+
+        if(o==null||p==null)return;
+
+        p.reserve();
+
+        o.addProduct(productId, p.price);
+    }
 
  public void checkout(String id){
   Order o=orders.get(id); if(o==null)return;

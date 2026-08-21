@@ -24,4 +24,3 @@ Como estamos chegando agora no projeto e ainda não conhecemos todo o código, v
 - Negativo: o projeto continua com vários outros pontos acoplados/inadequados por mais algum tempo, já que a melhoria é gradual e não imediata.
 - Próximo passo natural: repetir esse mesmo raciocínio para outras classes acopladas nas próximas aulas.
 
-> ADR legado propositalmente insuficiente.

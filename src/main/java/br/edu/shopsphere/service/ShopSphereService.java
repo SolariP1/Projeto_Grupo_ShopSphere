@@ -38,19 +38,31 @@ public class ShopSphereService {
         o.addProduct(productId, p.price);
     }
 
- public void checkout(String id){
-  Order o=orders.get(id); if(o==null)return;
-  double discount=discounts.calculate(o);
-  double payable=o.total-discount;
-  String payResult=payment.cobrar(o.customer,payable);
-  o.status=payResult.startsWith("00")?"PAID":"PAYMENT_ERROR";
+    public void checkout(String id){
+    Order o = orders.get(id);
+    if(o == null) return;
 
-  // ships even if payment failed and treats multi-seller order as one shipment
-  String freightQuote=freight.cotar("00000-000",2.0);
-  System.out.println("FREIGHT="+freightQuote);
-  mail.send("cliente@exemplo.com","Pedido "+id+" status "+o.status);
-  publisher.publish(id,"CHECKOUT_FINISHED");
- }
+    double discount = discounts.calculate(o);
+    double payable = o.total - discount;
+
+    String payResult = payment.cobrar(o.customer, payable);
+
+    o.status = payResult.startsWith("00")
+            ? "PAID"
+            : "PAYMENT_ERROR";
+
+    if (o.status.equals("PAID")) {
+        String freightQuote = freight.cotar("00000-000", 2.0);
+        System.out.println("FREIGHT=" + freightQuote);
+    }
+
+    mail.send(
+        "cliente@exemplo.com",
+        "Pedido " + id + " status " + o.status
+    );
+
+    publisher.publish(id, "CHECKOUT_FINISHED");
+}
 
  public Order findOrder(String id){return orders.get(id);}
 }

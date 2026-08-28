@@ -1,10 +1,17 @@
 package br.edu.shopsphere.service;
-import br.edu.shopsphere.model.*;
-import br.edu.shopsphere.repository.*;
-import br.edu.shopsphere.legacy.*;
-import br.edu.shopsphere.patterns.strategy.*;
-import br.edu.shopsphere.patterns.observer.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+
+import br.edu.shopsphere.legacy.CardGatewayLegacy;
+import br.edu.shopsphere.legacy.FreightLegacyApi;
+import br.edu.shopsphere.legacy.MarketplaceMailApi;
+import br.edu.shopsphere.model.Order;
+import br.edu.shopsphere.model.Product;
+import br.edu.shopsphere.patterns.observer.CustomerObserver;
+import br.edu.shopsphere.patterns.observer.OrderPublisher;
+import br.edu.shopsphere.patterns.observer.SellerObserver;
+import br.edu.shopsphere.patterns.strategy.DiscountService;
+import br.edu.shopsphere.repository.ProductRepository;
 
 public class ShopSphereService {
  private final ProductRepository products;

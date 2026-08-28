@@ -1,6 +1,10 @@
 package br.edu.shopsphere.patterns.observer;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class OrderPublisher {
- private OrderObserver observer;
- public void subscribe(OrderObserver o){observer=o;}
- public void publish(String id,String event){if(observer!=null)observer.update(id,event);}
+ private List<OrderObserver> observers = new ArrayList<>();
+ public void subscribe(OrderObserver o){observers.add(o);}
+ public void publish(String id,String event){for(OrderObserver o:observers){o.update(id,event);}}
 }

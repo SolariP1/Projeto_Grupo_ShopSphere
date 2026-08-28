@@ -25,7 +25,7 @@ public class ShopSphereService {
  public ShopSphereService(ProductRepository products){
   this.products=products;
   publisher.subscribe(new CustomerObserver());
-  publisher.subscribe(new SellerObserver()); // replaces customer
+  publisher.subscribe(new SellerObserver());
  }
 
  public void addProduct(Product p){products.save(p);}
